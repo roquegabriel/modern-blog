@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&display=swap');
+
+.active{
+    @apply text-orange-500 underline underline-offset-4;
+}

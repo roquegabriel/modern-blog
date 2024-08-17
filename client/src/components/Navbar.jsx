@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { FaBars, FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaSquareXTwitter, FaXmark } from "react-icons/fa6";
+import { UserContext } from '../contexts/UserContext';
+import Dropdown from './Dropdown';
 
 export const Navbar = () => {
+    const { userInfo, setUserInfo } = useContext(UserContext)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
@@ -16,6 +19,22 @@ export const Navbar = () => {
         { path: "/about", link: "About" },
         { path: "/blogs", link: "Blogs" },
     ]
+
+    useEffect(() => {
+        fetch('http://localhost:3000/api/profile', {
+            credentials: 'include'
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                throw new Error("Error")
+            })
+            .then((data) => {
+                setUserInfo(data)
+            })
+    }, [])
+
 
     return (
         <header className='bg-black fixed top-0 left-0 right-0'>
@@ -35,7 +54,17 @@ export const Navbar = () => {
                     <a href="/" className="hover:text-orange-500"><FaFacebook /></a>
                     <a href="/" className="hover:text-orange-500"><FaSquareXTwitter /></a>
                     <a href="/" className="hover:text-orange-500"><FaInstagram /></a>
-                    <button className='bg-orange-500 py-2 px-6 font-medium rounded hover:bg-white hover:text-orange-500 transition-all duration-300 ease-out'>Login</button>
+
+
+                    {userInfo !== null ? (
+                        <Dropdown username={userInfo.username} className="bg-orange-500 py-2 px-6 font-medium rounded" />
+                    ) : (
+                        <Link to={'/login'} className='bg-orange-500 py-2 px-6 font-medium rounded hover:bg-white hover:text-orange-500 transition-all duration-300 ease-out'>
+                            Login
+                        </Link>
+                    )}
+
+
                 </div>
                 {/* mobile menu */}
                 <div className='md:hidden'>

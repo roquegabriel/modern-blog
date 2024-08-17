@@ -6,11 +6,15 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom"
-import Home from './pages/Home.jsx'
-import Blogs from './pages/Blogs.jsx'
-import About from './pages/About.jsx'
-import Services from './pages/Services.jsx'
-import Contact from './pages/Contact.jsx'
+import Home from './pages/HomePage.jsx'
+import Blogs from './pages/BlogsPage.jsx'
+import About from './pages/AboutPage.jsx'
+import Services from './pages/ServicesPage.jsx'
+import Contact from './pages/ContactPage.jsx'
+import CreateBlogPage from './pages/CreateBlogPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import SignupPage from './pages/SignupPage.jsx'
+import { UserContextProvider } from './contexts/UserContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -37,12 +41,26 @@ const router = createBrowserRouter([
         path: '/contact',
         element: <Contact />
       },
+      {
+        path: '/create-blog',
+        element: <CreateBlogPage />
+      },
+      {
+        path: '/login',
+        element: <LoginPage />
+      },
+      {
+        path: '/signup',
+        element: <SignupPage />
+      },
     ]
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
   </StrictMode>,
 )

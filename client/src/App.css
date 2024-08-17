@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&display=swap');
 
-.active{
+.active {
     @apply text-orange-500 underline underline-offset-4;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    @apply min-w-full h-10 text-lg border border-gray-600 rounded mb-2 p-1;
+}
+.ql-editor{
+    height: 250px !important;
+    max-height: 250px !important;
+    overflow: auto !important;
 }

@@ -9,8 +9,9 @@ input[type="password"],
 input[type="number"] {
     @apply min-w-full h-10 text-lg border border-gray-600 rounded mb-2 p-1;
 }
-.ql-editor{
-    height: 250px !important;
-    max-height: 250px !important;
+
+.ql-editor {
+    height: 150px !important;
+    max-height: 150px !important;
     overflow: auto !important;
 }

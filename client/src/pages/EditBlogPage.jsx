@@ -4,8 +4,9 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { Toaster, toast } from 'react-hot-toast'
 import { useRef } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
-const CreateBlogPage = () => {
+const EditBlogPage = () => {
 
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState([])
@@ -15,7 +16,23 @@ const CreateBlogPage = () => {
     const [cover, setCover] = useState(null)
     const [readingTime, setReadingTime] = useState(1)
 
-    const inputFile = useRef()
+    const imageUrl = useRef('')
+    const { id } = useParams()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const url = `http://localhost:3000/api/post/${id}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((postDoc) => {
+                setTitle(postDoc.title)
+                setContent(postDoc.content)
+                setReadingTime(postDoc.readingTime)
+                setCategory([postDoc.category])
+                setTags(postDoc.tags)
+                imageUrl.current = postDoc.cover
+            })
+    }, [])
 
     useEffect(() => {
         fetch('http://localhost:3000/api/categories', {
@@ -35,16 +52,6 @@ const CreateBlogPage = () => {
 
     }, [])
 
-    const clearInputs = () => {
-        setTitle('')
-        setCategory([])
-        setTags([])
-        setContent('')
-        setCover(null)
-        inputFile.current.value = ''
-        setReadingTime(1)
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -53,12 +60,20 @@ const CreateBlogPage = () => {
         data.set('category', JSON.stringify(category))
         data.set('tags', JSON.stringify(tags))
         data.set('content', content)
-        data.set('cover', cover[0])
+
+        if (typeof cover === 'object' && cover !== null) {
+            let imgUrl = imageUrl.current
+            let parts = imgUrl.split('/')
+            let key = parts[parts.length - 1]
+            data.set('cover', cover[0])
+            data.set('objKey', key)
+        }
+
         data.set('readingTime', readingTime)
 
-        const url = "http://localhost:3000/api/create"
+        const url = `http://localhost:3000/api/edit/${id}`
         const options = {
-            method: "POST",
+            method: "PUT",
             credentials: "include",
             body: (data)
         }
@@ -66,10 +81,12 @@ const CreateBlogPage = () => {
         fetch(url, options)
             .then((response) => {
                 if (response.ok) {
-                    return toast.success('Post created successfully')
+                    return toast.success('Post edited successfully')
                 }
                 return toast.error("Something went wrong")
-            }).then(clearInputs)
+            }).then(() => {
+                navigate(-1)
+            })
 
     }
     const modules = {
@@ -95,7 +112,7 @@ const CreateBlogPage = () => {
 
     return (
         <div className='h-screen md:w-3/5 mx-auto flex flex-col justify-center items-center pt-16'>
-            <h2 className='text-3xl'>Create post</h2>
+            <h2 className='text-3xl'>Edit post</h2>
             <Toaster />
             <div className="w-full">
                 <form onSubmit={handleSubmit} encType="multipart/form-data" noValidate className="group">
@@ -112,7 +129,8 @@ const CreateBlogPage = () => {
                         values={category}
                         placeholder='Category'
                         onChange={(value) => setCategory(value)}
-                        required />
+                        required
+                    />
 
                     <Select
                         style={{ 'borderColor': '#6b7280', 'borderRadius': '0.25rem', 'fontSize': '1.125rem', 'height': '2.5rem' }}
@@ -129,17 +147,17 @@ const CreateBlogPage = () => {
                         onChange={(values) => setTags(values)}
                         required />
 
-                    <input type="file" name="cover" id="cover" className='file:h-10 file:mt-2 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-orange-500 file:text-white hover:file:bg-white hover:file:text-orange-500 hover:file:border file:border-orange-500 file:transition-all file:ease-out file:duration-300 mb-2' ref={inputFile} onChange={(e) => { setCover(e.target.files) }} />
+                    <input type="file" name="cover" id="cover" className='file:h-10 file:mt-2 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-orange-500 file:text-white hover:file:bg-white hover:file:text-orange-500 hover:file:border file:border-orange-500 file:transition-all file:ease-out file:duration-300 mb-2' onChange={(e) => { setCover(e.target.files) }} />
 
                     <input type="number" name="readingTime" id="readingTime" placeholder='Read time' min={1} step={1} max={60} value={readingTime === 1 ? '' : readingTime} onChange={(e) => { setReadingTime(e.target.value) }} required />
 
                     <ReactQuill modules={modules} theme='snow' value={content} onChange={setContent} />
 
-                    <button className='w-full bg-orange-500 h-10 mt-2 rounded shadow-md text-white hover:bg-white hover:text-orange-500 hover:border hover:border-orange-500 transition-all ease-in-out duration-300 group-invalid:pointer-events-none group-invalid:opacity-60'>Create</button>
+                    <button className='w-full bg-orange-500 h-10 mt-2 rounded shadow-md text-white hover:bg-white hover:text-orange-500 hover:border hover:border-orange-500 transition-all ease-in-out duration-300 group-invalid:pointer-events-none group-invalid:opacity-60'>Edit</button>
                 </form>
             </div>
         </div>
     )
 }
 
-export default CreateBlogPage
+export default EditBlogPage

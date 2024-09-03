@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { UserContext } from "../contexts/UserContext"
 import { useContext } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginPage = () => {
-    
+
     const { setUserInfo } = useContext(UserContext)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [redirect, setRedirect] = useState(false)
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -23,10 +26,13 @@ const LoginPage = () => {
 
         fetch(url, options)
             .then((response) => {
-                if (response.ok) {
+                console.log(response)
+                if (!response.ok) {
+                    return toast.error('Login failed!')
+                } else {
+                    setRedirect(true)
                     return response.json()
                 }
-                throw new Error("Error")
             })
             .then((data) => {
                 setUserInfo(data)
@@ -36,11 +42,16 @@ const LoginPage = () => {
             })
     }
 
+    if (redirect) {
+        return <Navigate to={'/'} />
+    }
+
 
     return (
-        <div className='h-screen flex flex-col justify-center items-center'>
+        <div className='h-screen flex flex-col justify-center items-center md:w-1/2 lg:w-1/3 mx-auto p-2'>
+            <Toaster />
             <h2 className='text-4xl'>Login</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='w-full'>
                 <label htmlFor="username">Username</label>
                 <input type="text" name="username" id="username" placeholder='Enter your username' value={username} onChange={(e) => { setUsername(e.target.value) }} required />
                 <label htmlFor="password">Password</label>

@@ -12,9 +12,11 @@ import About from './pages/AboutPage.jsx'
 import Services from './pages/ServicesPage.jsx'
 import Contact from './pages/ContactPage.jsx'
 import CreateBlogPage from './pages/CreateBlogPage.jsx'
+import EditBlogPage from './pages/EditBlogPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import SignupPage from './pages/SignupPage.jsx'
 import { UserContextProvider } from './contexts/UserContext.jsx'
+import PostPage from './pages/PostPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
         element: <Contact />
       },
       {
-        path: '/create-blog',
+        path: '/create-post',
         element: <CreateBlogPage />
       },
       {
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignupPage />
+      },
+      {
+        path: '/post/:id',
+        element: <PostPage />
+      },
+      {
+        path: '/edit-post/:id',
+        element: <EditBlogPage />
       },
     ]
   },

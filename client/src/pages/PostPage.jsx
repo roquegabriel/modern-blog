@@ -41,7 +41,7 @@ const PostPage = () => {
 
         <p>Published at: {moment(post.publishedDate).format('LL')}</p>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: post.content }}>
+      <div dangerouslySetInnerHTML={{ __html: post.content }} className='p-4'>
       </div>
     </div>
   )

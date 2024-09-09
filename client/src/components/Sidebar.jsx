@@ -14,12 +14,12 @@ export const Sidebar = () => {
     return (
         <div>
             <h3 className="text-2xl font-semibold mb-2">Latest blogs</h3>
-            <div className="flex flex-col-reverse gap-2 min-w-0">
+            <div className="flex flex-col-reverse gap-4">
                 {latestPosts.map(blog => (
-                    <>
-                        <Link to={`/post/${blog._id}`} className='font-medium hover:text-orange-500 inline-flex items-center gap-2'>Read article <FaArrowRight /></Link>
-                        <p key={blog._id} className="truncate">{blog.title}</p>
-                    </>
+                    <div key={blog._id} className='flex flex-col justify-between border-b border-b-gray-300 p-1 lg:h-32'>
+                        <p className="">{blog.title}</p>
+                        <Link to={`/post/${blog._id}`} className='font-medium hover:text-orange-500 inline-flex items-center gap-2 '>Read article <FaArrowRight /></Link>
+                    </div>
                 ))}
             </div>
         </div>

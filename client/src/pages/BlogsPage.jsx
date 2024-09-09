@@ -54,7 +54,7 @@ const BlogsPage = () => {
         <h2 className='text-5xl lg:text-7xl leading-snug font-bold'>Blog page</h2>
       </div>
       {/* Blogs container */}
-      <div className='max-w-7xl mx-auto'>
+      <div className='max-w-7xl mx-auto '>
         {/* Category section */}
         <div className='flex gap-2 py-4 px-2 justify-around items-center flex-wrap border-b border-b-black'>
           <Link onClick={() => { setSelectedCategory('all') }} className={`${selectedCategory === 'all' ? 'active' : ''}`}>All</Link>
@@ -64,13 +64,13 @@ const BlogsPage = () => {
         </div>
 
         {/* Blog card section */}
-        <div className='grid grid-cols-[4fr_1fr] p-2'>
+        <div className='grid lg:grid-cols-[4fr_1fr] p-2'>
           {/* Blog card component */}
           <div>
             <BlogCards blogs={blogs} currentPage={currentPage} selectedCategory={selectedCategory} pageSize={pageSize} />
           </div>
           {/* sidebar component */}
-          <div className='min-w-0 p-2'>
+          <div className='shrink-0 p-2'>
             <Sidebar numBlogs={numBlogs} />
           </div>
         </div>

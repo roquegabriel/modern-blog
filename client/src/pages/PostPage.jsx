@@ -23,13 +23,13 @@ const PostPage = () => {
     <div className="grid place-content-center max-w-5xl mx-auto pt-20">
       <Toaster />
       <figure className=''>
-        <img src={post.cover} alt="Picture" className='w-full' />
+        <img src={post.cover} alt="Picture" className='w-full rounded-md shadow-sm p-2' />
         <figcaption>
-          <h2 className="text-center">{post.title}</h2>
+          <h2 className="text-center text-3xl mt-5 font-bold text-blue-800">{post.title}</h2>
         </figcaption>
       </figure>
       <div className="flex flex-col justify-center items-center mt-0 mb-2">
-        <p><strong>By</strong> {post.author?.username}</p>
+        <p><strong>By</strong> {post.author?.username} </p>
 
         {userInfo.username === post.author?.username && (
           <Link to={`/edit-post/${id}`} className='flex items-center gap-1 border border-orange-500 py-1 px-2 rounded'>
@@ -41,7 +41,7 @@ const PostPage = () => {
 
         <p>Published at: {moment(post.publishedDate).format('LL')}</p>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} className='p-4'>
+      <div dangerouslySetInnerHTML={{ __html: post.content }} className='p-4 text-base'>
       </div>
     </div>
   )

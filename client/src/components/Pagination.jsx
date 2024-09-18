@@ -1,6 +1,5 @@
-import React from 'react'
-
-const Pagination = ({ onPageChange, currentPage, blogs, pageSize, numBlogs }) => {
+import PropTypes from "prop-types";
+const Pagination = ({ onPageChange, currentPage, pageSize, numBlogs }) => {
     const totalPages = Math.ceil(numBlogs / pageSize)
     const renderPaginationLinks = () => {
         return Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
@@ -20,6 +19,13 @@ const Pagination = ({ onPageChange, currentPage, blogs, pageSize, numBlogs }) =>
             </li>
         </ul>
     )
+}
+
+Pagination.propTypes = {
+    onPageChange: PropTypes.func,
+    currentPage: PropTypes.number,
+    pageSize: PropTypes.number,
+    numBlogs: PropTypes.number
 }
 
 export default Pagination

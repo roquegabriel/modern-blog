@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div>
       <Banner />
-      
+      <BlogsPage />
     </div>
   )
 }

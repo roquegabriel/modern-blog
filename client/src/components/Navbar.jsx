@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FaBars, FaFacebook, FaInstagram } from "react-icons/fa";
-import { FaSquareXTwitter, FaUser, FaXmark } from "react-icons/fa6";
+import { FaSquareXTwitter, FaXmark } from "react-icons/fa6";
 import { UserContext } from '../contexts/UserContext';
 import Dropdown from "./Dropdown";
 

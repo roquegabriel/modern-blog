@@ -5,7 +5,7 @@ export const Sidebar = () => {
     const [latestPosts, setLatestPosts] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/latest-posts`)
+        fetch(`https://mern-blog-bay-gamma.vercel.app/api/latest-posts`)
             .then(res => res.json())
             .then((latestPosts) => setLatestPosts(latestPosts))
     }, [])

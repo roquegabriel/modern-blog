@@ -11,7 +11,7 @@ const PostPage = () => {
   const { userInfo } = useContext(UserContext)
 
   useEffect(() => {
-    const url = `http://localhost:3000/api/post/${id}`
+    const url = `https://mern-blog-bay-gamma.vercel.app/api/post/${id}`
     fetch(url)
       .then((response) => response.json())
       .then((postDoc) => setPost(postDoc))

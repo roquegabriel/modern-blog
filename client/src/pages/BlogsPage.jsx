@@ -15,7 +15,7 @@ const BlogsPage = () => {
   const pageSize = 6
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/filtered-categories', {
+    fetch('https://mern-blog-bay-gamma.vercel.app/api/filtered-categories', {
       headers: {
         "content-type": "application/json",
       }
@@ -29,7 +29,7 @@ const BlogsPage = () => {
 
   useEffect(() => {
     async function fetchBlogs() {
-      const url = `http://localhost:3000/api/blogs?page=${currentPage}&limit=${pageSize}&category=${selectedCategory}`
+      const url = `https://mern-blog-bay-gamma.vercel.app/api/blogs?page=${currentPage}&limit=${pageSize}&category=${selectedCategory}`
       const response = await fetch(url)
       const { blogs, numBlogs } = await response.json()
       setBlogs(blogs)

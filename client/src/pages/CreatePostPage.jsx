@@ -56,7 +56,7 @@ const CreateBlogPage = () => {
         data.set('cover', cover[0])
         data.set('readingTime', readingTime)
 
-        const url = "http://localhost:3000/api/create"
+        const url = "https://mern-blog-bay-gamma.vercel.app/api/create"
         const options = {
             method: "POST",
             credentials: "include",

@@ -76,7 +76,7 @@ const SignupPage = () => {
 
         if (isFormValid) {
 
-            const url = "http://localhost:3000/api/signup"
+            const url = "https://mern-blog-bay-gamma.vercel.app/api/signup"
             const options = {
                 method: "POST",
                 headers: {

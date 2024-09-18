@@ -21,7 +21,7 @@ const EditBlogPage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const url = `http://localhost:3000/api/post/${id}`
+        const url = `https://mern-blog-bay-gamma.vercel.app/api/post/${id}`
         fetch(url)
             .then((response) => response.json())
             .then((postDoc) => {
@@ -35,7 +35,7 @@ const EditBlogPage = () => {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/categories', {
+        fetch('https://mern-blog-bay-gamma.vercel.app/api/categories', {
             method: "GET"
         })
             .then((response) => {
@@ -71,7 +71,7 @@ const EditBlogPage = () => {
 
         data.set('readingTime', readingTime)
 
-        const url = `http://localhost:3000/api/edit/${id}`
+        const url = `https://mern-blog-bay-gamma.vercel.app/api/edit/${id}`
         const options = {
             method: "PUT",
             credentials: "include",

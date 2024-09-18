@@ -14,7 +14,7 @@ const LoginPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const url = "http://localhost:3000/api/login"
+        const url = "https://mern-blog-bay-gamma.vercel.app/api/login"
         const options = {
             method: "POST",
             credentials: "include",

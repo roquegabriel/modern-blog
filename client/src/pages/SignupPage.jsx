@@ -76,7 +76,7 @@ const SignupPage = () => {
 
         if (isFormValid) {
 
-            const url = "https://mern-blog-bay-gamma.vercel.app/api/signup"
+            const url = `${import.meta.env.VITE_API_URL}/signup`
             const options = {
                 method: "POST",
                 headers: {

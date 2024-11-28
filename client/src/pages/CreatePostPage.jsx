@@ -18,7 +18,7 @@ const CreateBlogPage = () => {
     const inputFile = useRef()
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/categories', {
+        fetch(`${import.meta.env.VITE_API_URL}/categories`, {
             method: "GET"
         })
             .then((response) => {
@@ -56,7 +56,7 @@ const CreateBlogPage = () => {
         data.set('cover', cover[0])
         data.set('readingTime', readingTime)
 
-        const url = "https://mern-blog-bay-gamma.vercel.app/api/create"
+        const url = `${import.meta.env.VITE_API_URL}/create`
         const options = {
             method: "POST",
             credentials: "include",

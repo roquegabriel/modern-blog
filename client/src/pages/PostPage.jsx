@@ -11,7 +11,7 @@ const PostPage = () => {
   const { userInfo } = useContext(UserContext)
 
   useEffect(() => {
-    const url = `https://mern-blog-bay-gamma.vercel.app/api/post/${id}`
+    const url = `${import.meta.env.VITE_API_URL}/post/${id}`
     fetch(url)
       .then((response) => response.json())
       .then((postDoc) => setPost(postDoc))

@@ -24,7 +24,7 @@ export const Navbar = () => {
     ]
 
     useEffect(() => {
-        fetch('https://mern-blog-bay-gamma.vercel.app/api/profile', {
+        fetch(`${import.meta.env.VITE_API_URL}/profile`, {
             credentials: 'include'
         })
             .then((response) => {
@@ -41,7 +41,7 @@ export const Navbar = () => {
     const handleLogout = (e) => {
         e.preventDefault()
 
-        fetch('https://mern-blog-bay-gamma.vercel.app/api/logout', {
+        fetch(`${import.meta.env.VITE_API_URL}/logout`, {
             credentials: 'include',
             method: 'POST'
         })

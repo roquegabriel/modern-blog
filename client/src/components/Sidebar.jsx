@@ -5,7 +5,7 @@ export const Sidebar = () => {
     const [latestPosts, setLatestPosts] = useState([])
 
     useEffect(() => {
-        fetch(`https://mern-blog-bay-gamma.vercel.app/api/latest-posts`)
+        fetch(`${import.meta.env.VITE_API_URL}/latest-posts`)
             .then(res => res.json())
             .then((latestPosts) => setLatestPosts(latestPosts))
     }, [])

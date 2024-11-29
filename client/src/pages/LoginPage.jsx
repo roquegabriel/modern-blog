@@ -14,7 +14,7 @@ const LoginPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const url = `${import.meta.env.VITE_API_URL}/api/login`
+        const url = `${import.meta.env.VITE_API_URL}/login`
         const options = {
             method: "POST",
             credentials: "include",

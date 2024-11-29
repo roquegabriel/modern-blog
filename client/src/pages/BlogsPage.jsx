@@ -34,6 +34,7 @@ const BlogsPage = () => {
       const { blogs, numBlogs } = await response.json()
       setBlogs(blogs)
       setNumBlogs(numBlogs)
+      console.log(import.meta.env.VITE_API_URL)
     }
 
     fetchBlogs()

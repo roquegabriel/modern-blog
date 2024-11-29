@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
 const port = process.env.PORT || 3000
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const crypto = require('crypto')
 const User = require('./models/User')
 const Blog = require('./models/Blog')
 const Category = require('./models/Category')
@@ -14,6 +14,7 @@ const multer = require('multer')
 const upload = multer({ dest: '/tmp' })
 const fs = require('fs')
 const bucket = "weblog-app-bucket"
+const secret = process.env.JWT_SECRET
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -21,7 +22,6 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(cookieParser())
-require('dotenv').config()
 
 const saltRounds = 10
 
@@ -88,17 +88,6 @@ app.post('/api/signup', async (req, res) => {
         }
     })
 })
-const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-    modulusLength: 2048,
-    publicKeyEncoding: {
-        type: 'spki',
-        format: 'pem'
-    },
-    privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'pem',
-    }
-})
 
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body
@@ -106,7 +95,7 @@ app.post('/api/login', async (req, res) => {
     if (userDoc) {
         bcrypt.compare(password, userDoc.password, async (err, result) => {
             if (result) {
-                const token = jwt.sign({ id: userDoc._id, username }, privateKey, { algorithm: 'RS256', expiresIn: '1h' })
+                const token = jwt.sign({ id: userDoc._id, username }, secret, { expiresIn: '1h' })
                 res.cookie('token', token).json({ username })
             } else {
                 res.status(400).json({ error: 'login failed' })
@@ -123,7 +112,7 @@ app.post('/api/create', upload.single('cover'), async (req, res) => {
     const { token } = req.cookies
     const topics = JSON.parse(tags)
     const categories = JSON.parse(category)
-    jwt.verify(token, publicKey, async (err, decoded) => {
+    jwt.verify(token, secret, async (err, decoded) => {
         if (err) throw err
         const url = await uploadToS3(path, originalname, mimetype)
         const blogDoc = await Blog.create({
@@ -139,7 +128,7 @@ app.put('/api/edit/:id', upload.single('cover'), async (req, res) => {
     const tags = JSON.parse(req.body.tags)
     const { token } = req.cookies
 
-    jwt.verify(token, publicKey, async (err, decoded) => {
+    jwt.verify(token, secret, async (err, decoded) => {
         if (err) {
             res.status(401).json(err)
         } else {
@@ -184,7 +173,7 @@ app.get('/api/filtered-categories', async (req, res) => {
 app.get('/api/profile', (req, res) => {
     const { token } = req.cookies
     if (token) {
-        jwt.verify(token, publicKey, async (err, decoded) => {
+        jwt.verify(token, secret, async (err, decoded) => {
             if (err) throw err
             res.json({ username: decoded.username })
         })

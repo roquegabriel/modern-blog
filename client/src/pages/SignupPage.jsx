@@ -76,7 +76,7 @@ const SignupPage = () => {
 
         if (isFormValid) {
 
-            const url = `${import.meta.env.VITE_API_URL}/signup`
+            const url = `${import.meta.env.VITE_API_URL}/api/signup`
             const options = {
                 method: "POST",
                 headers: {

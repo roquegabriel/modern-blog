@@ -21,7 +21,7 @@ const EditBlogPage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const url = `${import.meta.env.VITE_API_URL}/post/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/api/post/${id}`
         fetch(url)
             .then((response) => response.json())
             .then((postDoc) => {
@@ -35,7 +35,7 @@ const EditBlogPage = () => {
     }, [])
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/categories`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
             method: "GET"
         })
             .then((response) => {
@@ -71,7 +71,7 @@ const EditBlogPage = () => {
 
         data.set('readingTime', readingTime)
 
-        const url = `${import.meta.env.VITE_API_URL}/edit/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/api/edit/${id}`
         const options = {
             method: "PUT",
             credentials: "include",

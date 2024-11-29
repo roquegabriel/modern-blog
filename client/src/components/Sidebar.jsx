@@ -5,7 +5,7 @@ export const Sidebar = () => {
     const [latestPosts, setLatestPosts] = useState([])
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/latest-posts`)
+        fetch(`${import.meta.env.VITE_API_URL}/api/latest-posts`)
             .then(res => res.json())
             .then((latestPosts) => setLatestPosts(latestPosts))
     }, [])

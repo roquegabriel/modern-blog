@@ -24,7 +24,7 @@ export const Navbar = () => {
     ]
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/profile`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
             credentials: 'include'
         })
             .then((response) => {
@@ -41,7 +41,7 @@ export const Navbar = () => {
     const handleLogout = (e) => {
         e.preventDefault()
 
-        fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
             credentials: 'include',
             method: 'POST'
         })

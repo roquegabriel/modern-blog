@@ -15,7 +15,7 @@ const BlogsPage = () => {
   const pageSize = 6
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/filtered-categories`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/filtered-categories`, {
       headers: {
         "content-type": "application/json",
       }
@@ -29,7 +29,7 @@ const BlogsPage = () => {
 
   useEffect(() => {
     async function fetchBlogs() {
-      const url = `${import.meta.env.VITE_API_URL}/blogs?page=${currentPage}&limit=${pageSize}&category=${selectedCategory}`
+      const url = `${import.meta.env.VITE_API_URL}/api/blogs?page=${currentPage}&limit=${pageSize}&category=${selectedCategory}`
       const response = await fetch(url)
       const { blogs, numBlogs } = await response.json()
       setBlogs(blogs)

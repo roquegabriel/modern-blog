@@ -18,7 +18,7 @@ const CreateBlogPage = () => {
     const inputFile = useRef()
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/categories`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
             method: "GET"
         })
             .then((response) => {
@@ -56,7 +56,7 @@ const CreateBlogPage = () => {
         data.set('cover', cover[0])
         data.set('readingTime', readingTime)
 
-        const url = `${import.meta.env.VITE_API_URL}/create`
+        const url = `${import.meta.env.VITE_API_URL}/api/create`
         const options = {
             method: "POST",
             credentials: "include",

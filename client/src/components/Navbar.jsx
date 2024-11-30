@@ -56,7 +56,7 @@ export const Navbar = () => {
     return (
         <header className='bg-black fixed top-0 left-0 right-0'>
             <nav className='p-4 max-w-7xl mx-auto flex items-center justify-between'>
-                <a className='text-3xl font-bold text-white' href="/">My <span className="text-orange-500">Blog</span></a>
+                <a className='text-3xl font-bold text-white' href="/">The <span className="text-orange-500">Blog</span></a>
                 {/* navitems for lg devices */}
                 <ul className='md:flex items-center gap-6 lg:gap-12 text-lg hidden'>
                     {navItems.map(({ path, link }) => <li className='text-white' key={path}>
